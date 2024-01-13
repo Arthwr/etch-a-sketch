@@ -18,7 +18,6 @@ function createGrid(gridSize) {
       gridSquare.classList.add("square");
       gridSquare.style.width = `${squareSize}px`;
       gridSquare.style.height = `${squareSize}px`;
-      gridSquare.style.setProperty("--grid-size", gridSize);
       gridRow.appendChild(gridSquare);
     }
   }
@@ -26,10 +25,22 @@ function createGrid(gridSize) {
 
 // Drawing
 isMouseDown = false;
+isRainbowModeOn = false;
+
+const randomRGB = function () {
+  let red = Math.floor(Math.random() * 256);
+  let green = Math.floor(Math.random() * 256);
+  let blue = Math.floor(Math.random() * 256);
+  return `rgb(${red}, ${green}, ${blue})`;
+};
 
 function drawSquare(event) {
   if (event.target.className === "square" && isMouseDown) {
-    event.target.style.backgroundColor = "black";
+    if (isRainbowModeOn) {
+      event.target.style.backgroundColor = randomRGB();
+    } else {
+      event.target.style.backgroundColor = "black";
+    }
   }
 }
 container.addEventListener("mousedown", (event) => {
@@ -42,6 +53,7 @@ container.addEventListener("mouseover", drawSquare);
 
 // UI
 const sizeButton = document.querySelector("#sizeButton");
+const rainbowButton = document.querySelector("#rainbowButton");
 
 function changeSize() {
   const gridSizeInput = prompt("Change a grid size (not more than 100x100)");
@@ -52,13 +64,21 @@ function changeSize() {
     alert("Please type in correct number between 1 and 100");
   }
 }
+
 sizeButton.addEventListener("click", changeSize);
+rainbowButton.addEventListener("click", toggleRainbowMode);
 
 // Helper functions
 function removeAllChildNodes(parent) {
   while (parent.firstChild) {
     parent.removeChild(parent.firstChild);
   }
+}
+
+function toggleRainbowMode() {
+  rainbowButton.classList.toggle("active");
+  isRainbowModeOn = !isRainbowModeOn;
+  
 }
 
 // Init

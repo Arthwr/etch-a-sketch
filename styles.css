@@ -25,11 +25,20 @@ button {
   border-radius: 0.5rem;
 }
 
+#settings {
+  display: flex;
+  gap: 2rem;
+}
+
 #container {
   background-color: white;
   width: 960px;
   height: auto;
   border: 1px solid black;
+}
+
+#rainbowButton.active {
+  background-color: aquamarine;
 }
 
 .row {
@@ -38,7 +47,6 @@ button {
 }
 
 .square {
-  flex-basis: calc(100% / var (--grid-size));
   margin: 0;
   width: 100%;
   height: 100%;
